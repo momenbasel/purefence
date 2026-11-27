@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../screenshot.png" alt="PureSnitch — firewall de aplicaciones para macOS de código abierto" width="800">
+  <img src="../screenshot.png" alt="PureFence — firewall de aplicaciones para macOS de código abierto" width="800">
 </p>
 
 <p align="center">
@@ -11,7 +11,7 @@
   <a href="README.zh-Hant.md">繁體中文</a>
 </p>
 
-<h1 align="center">PureSnitch</h1>
+<h1 align="center">PureFence</h1>
 
 <p align="center">
   <b>Mira con quién habla tu Mac. Bloquea lo que no te gusta.</b><br>
@@ -21,20 +21,20 @@
 ## Instalar
 
 ```bash
-brew tap momenbasel/puresnitch
-brew trust --tap momenbasel/puresnitch
-brew install --cask puresnitch
+brew tap momenbasel/purefence
+brew trust --tap momenbasel/purefence
+brew install --cask purefence
 ```
 
-Homebrew 6 se niega a cargar casks de un tap de terceros hasta que confías en él, por eso la línea `brew trust` hace falta una sola vez. Para actualizar más adelante usa `brew upgrade --cask puresnitch`.
+Homebrew 6 se niega a cargar casks de un tap de terceros hasta que confías en él, por eso la línea `brew trust` hace falta una sola vez. Para actualizar más adelante usa `brew upgrade --cask purefence`.
 
-O descarga el `.dmg` firmado y notarizado desde [Releases](https://github.com/momenbasel/puresnitch/releases/latest) y arrastra PureSnitch a `/Applications`.
+O descarga el `.dmg` firmado y notarizado desde [Releases](https://github.com/momenbasel/purefence/releases/latest) y arrastra PureFence a `/Applications`.
 
 ## Por qué existe
 
 Little Snitch es el estándar de oro para firewalls de aplicaciones en macOS, pero es software comercial de pago. LuLu es gratis y excelente a nivel de proceso, pero el administrador de reglas es austero y no tiene mapa mundial ni gráfico de tráfico ni biblioteca de blocklists. El firewall integrado de macOS solo bloquea entrada — no hace nada con el tráfico saliente.
 
-PureSnitch es la cuarta opción:
+PureFence es la cuarta opción:
 
 - **Misma interfaz que Little Snitch 6** — barra de menú, mapa mundial, gestor de reglas, alertas de conexión.
 - **Código abierto bajo MIT** — léelo, fórkalo, audítalo.

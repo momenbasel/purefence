@@ -2,7 +2,7 @@
 
 This is the `NEFilterDataProvider` content filter for **per-process** connection
 filtering using the same macOS mechanism as Little Snitch. It is a real build
-target (`PureSnitchNetExt`, `type: system-extension`) embedded only when the
+target (`PureFenceNetExt`, `type: system-extension`) embedded only when the
 project is generated from `project-netext.yml`; the shipping build excludes it.
 
 ## Files

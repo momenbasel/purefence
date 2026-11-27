@@ -5,13 +5,13 @@
 	<key>CFBundleIdentifier</key>
 	<string>io.moamenbasel.puresnitch.helper</string>
 	<key>CFBundleName</key>
-	<string>PureSnitchHelper</string>
+	<string>PureFenceHelper</string>
 	<key>CFBundlePackageType</key>
 	<string>XPC!</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.2.3</string>
+	<string>0.2.4</string>
 	<key>CFBundleVersion</key>
-	<string>5</string>
+	<string>6</string>
 	<key>SMAuthorizedClients</key>
 	<array>
 		<string>identifier "io.moamenbasel.puresnitch" and anchor apple generic and certificate leaf[subject.OU] = "H3WXHVTP97"</string>

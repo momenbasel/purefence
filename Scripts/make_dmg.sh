@@ -4,11 +4,11 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 
-VERSION="${VERSION:-0.2.3}"
-BUILD_NUMBER="${BUILD_NUMBER:-5}"
-APP_BUNDLE="$ROOT/build/release/Build/Products/Release/PureSnitch.app"
+VERSION="${VERSION:-0.2.4}"
+BUILD_NUMBER="${BUILD_NUMBER:-6}"
+APP_BUNDLE="$ROOT/build/release/Build/Products/Release/PureFence.app"
 DMG_DIR="$ROOT/build/dmg_staging"
-DMG="$ROOT/artifacts/PureSnitch-${VERSION}.dmg"
+DMG="$ROOT/artifacts/PureFence-${VERSION}.dmg"
 TEAM_ID="H3WXHVTP97"
 SIGN_ID="Developer ID Application: Moamen Basel ($TEAM_ID)"
 NOTARY_PROFILE="puresnitch-notary"
@@ -53,21 +53,21 @@ assert_release_signature() {
 mkdir -p artifacts
 test -d "$APP_BUNDLE" || fail "$APP_BUNDLE missing - run Scripts/sign_and_notarize.sh first"
 assert_plist_metadata "$APP_BUNDLE/Contents/Info.plist"
-assert_universal "$APP_BUNDLE/Contents/MacOS/PureSnitch"
-assert_universal "$APP_BUNDLE/Contents/MacOS/PureSnitchHelper"
-assert_release_signature "$APP_BUNDLE/Contents/MacOS/PureSnitchHelper"
+assert_universal "$APP_BUNDLE/Contents/MacOS/PureFence"
+assert_universal "$APP_BUNDLE/Contents/MacOS/PureFenceHelper"
+assert_release_signature "$APP_BUNDLE/Contents/MacOS/PureFenceHelper"
 assert_release_signature "$APP_BUNDLE"
 codesign --verify --strict --deep --verbose=2 "$APP_BUNDLE"
 xcrun stapler validate "$APP_BUNDLE"
 rm -rf "$DMG_DIR"
 mkdir -p "$DMG_DIR"
 # ditto, not cp: it preserves the bundle's metadata and signature intact.
-/usr/bin/ditto "$APP_BUNDLE" "$DMG_DIR/PureSnitch.app"
+/usr/bin/ditto "$APP_BUNDLE" "$DMG_DIR/PureFence.app"
 ln -s /Applications "$DMG_DIR/Applications"
 
 rm -f "$DMG"
 hdiutil create \
-    -volname "PureSnitch ${VERSION}" \
+    -volname "PureFence ${VERSION}" \
     -srcfolder "$DMG_DIR" \
     -ov \
     -format UDZO \
@@ -87,7 +87,7 @@ codesign --verify --verbose=2 "$DMG"
 hdiutil verify "$DMG" >/dev/null
 
 echo ">> Verifying the artifact users will actually download…"
-MOUNT_DIR="$(mktemp -d /tmp/puresnitch-dmg.XXXXXX)"
+MOUNT_DIR="$(mktemp -d /tmp/purefence-dmg.XXXXXX)"
 MOUNT_ATTACHED=0
 cleanup_mount() {
   if [ "$MOUNT_ATTACHED" = "1" ]; then
@@ -98,14 +98,14 @@ cleanup_mount() {
 trap cleanup_mount EXIT INT TERM
 hdiutil attach "$DMG" -nobrowse -mountpoint "$MOUNT_DIR" -quiet
 MOUNT_ATTACHED=1
-INSTALLED="$MOUNT_DIR/PureSnitch.app"
+INSTALLED="$MOUNT_DIR/PureFence.app"
 spctl -a -vvv -t exec "$INSTALLED" 2>&1 | sed 's/^/   /'
-for BIN in "$INSTALLED/Contents/MacOS/PureSnitch" "$INSTALLED/Contents/MacOS/PureSnitchHelper"; do
+for BIN in "$INSTALLED/Contents/MacOS/PureFence" "$INSTALLED/Contents/MacOS/PureFenceHelper"; do
   assert_universal "$BIN"
 done
 test -f "$INSTALLED/Contents/Resources/Assets.car" || fail "no Assets.car in the DMG"
 assert_plist_metadata "$INSTALLED/Contents/Info.plist"
-assert_release_signature "$INSTALLED/Contents/MacOS/PureSnitchHelper"
+assert_release_signature "$INSTALLED/Contents/MacOS/PureFenceHelper"
 assert_release_signature "$INSTALLED"
 codesign --verify --strict --deep --verbose=2 "$INSTALLED"
 xcrun stapler validate "$INSTALLED"

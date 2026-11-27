@@ -1,6 +1,6 @@
 //
 //  FilterDataProvider.swift
-//  PureSnitch Network System Extension
+//  PureFence Network System Extension
 //
 //  A NEFilterDataProvider content filter (the same mechanism Little Snitch
 //  uses). Every new socket flow is evaluated against the rule set mirrored into

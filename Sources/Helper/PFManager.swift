@@ -142,7 +142,7 @@ final class PFManager: @unchecked Sendable {
     }
 
     /// Remove stale state before the XPC service starts accepting clients. A
-    /// stored token belongs only to PureSnitch and is safe to release; unknown
+    /// stored token belongs only to PureFence and is safe to release; unknown
     /// legacy enable references are deliberately left alone.
     func cleanupOrphanedState() throws {
         try withProcessLock {
@@ -222,7 +222,7 @@ final class PFManager: @unchecked Sendable {
 
     private func writeAnchorFile(rules: [Rule]) throws {
         var lines: [String] = []
-        lines.append("# PureSnitch pf anchor - auto-generated. Do not edit.")
+        lines.append("# PureFence pf anchor - auto-generated. Do not edit.")
 
         let now = Date()
         let denyRules = rules.filter {
@@ -329,12 +329,12 @@ final class PFManager: @unchecked Sendable {
         do {
             try writeAnchorFile(rules: [])
         } catch {
-            failures.append("clear PureSnitch anchor file: \(error.localizedDescription)")
+            failures.append("clear PureFence anchor file: \(error.localizedDescription)")
         }
 
         let operations: [(String, [String])] = [
-            ("flush PureSnitch runtime rules", ["-a", PFManager.anchorName, "-F", "rules"]),
-            ("unload PureSnitch runtime anchor", ["-a", PFManager.anchorName, "-f", "/dev/null"]),
+            ("flush PureFence runtime rules", ["-a", PFManager.anchorName, "-F", "rules"]),
+            ("unload PureFence runtime anchor", ["-a", PFManager.anchorName, "-f", "/dev/null"]),
         ]
         var runtimeOperationsSucceeded = true
         for (description, arguments) in operations {
@@ -642,7 +642,7 @@ final class PFManager: @unchecked Sendable {
             throw NSError(
                 domain: NSPOSIXErrorDomain,
                 code: Int(errno),
-                userInfo: [NSLocalizedDescriptionKey: "could not open the PureSnitch PF lifecycle lock"]
+                userInfo: [NSLocalizedDescriptionKey: "could not open the PureFence PF lifecycle lock"]
             )
         }
         defer { close(descriptor) }
@@ -650,14 +650,14 @@ final class PFManager: @unchecked Sendable {
             throw NSError(
                 domain: NSPOSIXErrorDomain,
                 code: Int(errno),
-                userInfo: [NSLocalizedDescriptionKey: "could not secure the PureSnitch PF lifecycle lock"]
+                userInfo: [NSLocalizedDescriptionKey: "could not secure the PureFence PF lifecycle lock"]
             )
         }
         guard flock(descriptor, LOCK_EX) == 0 else {
             throw NSError(
                 domain: NSPOSIXErrorDomain,
                 code: Int(errno),
-                userInfo: [NSLocalizedDescriptionKey: "could not acquire the PureSnitch PF lifecycle lock"]
+                userInfo: [NSLocalizedDescriptionKey: "could not acquire the PureFence PF lifecycle lock"]
             )
         }
         defer { flock(descriptor, LOCK_UN) }

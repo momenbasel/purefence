@@ -18,7 +18,7 @@ just never opens.
 
 Two concrete consequences we hit while building the v0.2 series:
 
-- `xcodebuild` refuses outright: *"PureSnitch requires a provisioning profile
+- `xcodebuild` refuses outright: *"PureFence requires a provisioning profile
   with the Network Extensions and System Extension features."* There is no way
   to produce a signed release with those entitlements and no profile.
 - The 0.1.0 users in issue #5 already had an app that looked dead. Shipping a
@@ -38,7 +38,7 @@ Everything for the extension is still in the tree.
 xcodegen generate --spec project-netext.yml
 ```
 
-That spec re-adds the entitlements and embeds `PureSnitchNetExt.systemextension`.
+That spec re-adds the entitlements and embeds `PureFenceNetExt.systemextension`.
 Before it can be distributed you need, from the Apple Developer portal:
 
 1. The **Network Extensions** capability enabled on App ID `io.moamenbasel.puresnitch`

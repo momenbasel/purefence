@@ -85,7 +85,7 @@ final class BlocklistManager: @unchecked Sendable {
         // longer than 15 seconds to begin streaming. Cached data remains active
         // while this bounded refresh runs.
         var req = URLRequest(url: url, timeoutInterval: 45)
-        req.setValue("PureSnitch/\(AppConstants.version)", forHTTPHeaderField: "User-Agent")
+        req.setValue("PureFence/\(AppConstants.version)", forHTTPHeaderField: "User-Agent")
         do {
             let (data, response) = try await URLSession.shared.data(for: req)
             // Without this check an error page parses into junk "domains":

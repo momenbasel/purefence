@@ -10,7 +10,7 @@
         <true/>
     </dict>
     <key>BundleProgram</key>
-    <string>Contents/MacOS/PureSnitchHelper</string>
+    <string>Contents/MacOS/PureFenceHelper</string>
     <key>AssociatedBundleIdentifiers</key>
     <array>
         <string>io.moamenbasel.puresnitch</string>

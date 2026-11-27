@@ -51,7 +51,7 @@ final class SystemExtensionManager: NSObject, ObservableObject {
 
     /// Teardown is sequenced: the filter configuration is removed, not just
     /// disabled, and the extension is deactivated only once that write has
-    /// landed, so no "PureSnitch" row outlives the app in network preferences.
+    /// landed, so no "PureFence" row outlives the app in network preferences.
     func deactivate() {
         guard hasEmbeddedExtension else { return }
         removeFilterConfiguration { [weak self] in
@@ -76,7 +76,7 @@ final class SystemExtensionManager: NSObject, ObservableObject {
                     cfg.filterSockets = true
                     cfg.filterPackets = false
                     mgr.providerConfiguration = cfg
-                    mgr.localizedDescription = "PureSnitch"
+                    mgr.localizedDescription = "PureFence"
                 }
                 mgr.isEnabled = true
                 mgr.saveToPreferences { saveError in
@@ -176,7 +176,7 @@ extension SystemExtensionManager: OSSystemExtensionRequestDelegate {
         Task { @MainActor in
             self.status = .needsApproval
             self.state?.appendLog(level: "info",
-                                  message: "Approve PureSnitch in System Settings > Privacy & Security, then it will start filtering.")
+                                  message: "Approve PureFence in System Settings > Privacy & Security, then it will start filtering.")
         }
     }
 

@@ -22,8 +22,8 @@ jobs:
       - name: Build (ad-hoc signed)
         run: |
           xcodebuild \
-            -project PureSnitch.xcodeproj \
-            -scheme PureSnitch \
+            -project PureFence.xcodeproj \
+            -scheme PureFence \
             -configuration Debug \
             -derivedDataPath build/dd \
             CODE_SIGN_IDENTITY="-" \
@@ -36,10 +36,10 @@ jobs:
 
       - name: Verify app bundle
         run: |
-          APP=build/dd/Build/Products/Debug/PureSnitch.app
+          APP=build/dd/Build/Products/Debug/PureFence.app
           test -d "$APP"
-          test -f "$APP/Contents/MacOS/PureSnitch"
-          test -f "$APP/Contents/MacOS/PureSnitchHelper"
+          test -f "$APP/Contents/MacOS/PureFence"
+          test -f "$APP/Contents/MacOS/PureFenceHelper"
           test -f "$APP/Contents/Library/LaunchDaemons/io.moamenbasel.puresnitch.helper.plist"
           test -f "$APP/Contents/Resources/Assets.car"
           echo "App bundle structure OK (helper + app icon)"
@@ -58,8 +58,8 @@ jobs:
       - name: Build universal (Release, ad-hoc signed)
         run: |
           xcodebuild \
-            -project PureSnitch.xcodeproj \
-            -scheme PureSnitch \
+            -project PureFence.xcodeproj \
+            -scheme PureFence \
             -configuration Release \
             -derivedDataPath build/rel \
             ARCHS="arm64 x86_64" \
@@ -71,8 +71,8 @@ jobs:
 
       - name: Verify universal slices (arm64 + x86_64)
         run: |
-          APP=build/rel/Build/Products/Release/PureSnitch.app
-          for BIN in "$APP/Contents/MacOS/PureSnitch" "$APP/Contents/MacOS/PureSnitchHelper"; do
+          APP=build/rel/Build/Products/Release/PureFence.app
+          for BIN in "$APP/Contents/MacOS/PureFence" "$APP/Contents/MacOS/PureFenceHelper"; do
             echo "== $BIN =="
             lipo -info "$BIN"
             lipo -archs "$BIN" | grep -qw arm64
@@ -83,13 +83,13 @@ jobs:
       - name: Verify no restricted entitlements leaked into the shipping build
         run: |
           ENT_REL=$(xcodebuild \
-            -project PureSnitch.xcodeproj \
-            -target PureSnitch \
+            -project PureFence.xcodeproj \
+            -target PureFence \
             -configuration Release \
             -showBuildSettings \
             | awk -F ' = ' '/^[[:space:]]*CODE_SIGN_ENTITLEMENTS = / && !found { print $2; found=1 }')
 
-          test "$ENT_REL" = "Sources/GUI/PureSnitch.entitlements"
+          test "$ENT_REL" = "Sources/GUI/PureFence.entitlements"
           ENT="$GITHUB_WORKSPACE/$ENT_REL"
           test -f "$ENT"
           plutil -lint "$ENT"

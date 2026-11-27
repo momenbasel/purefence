@@ -3,7 +3,7 @@ set -euo pipefail
 
 script_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 repo_dir=$(cd "$script_dir/.." && pwd)
-test_dir=$(mktemp -d "${TMPDIR:-/tmp}/puresnitch-hardening.XXXXXX")
+test_dir=$(mktemp -d "${TMPDIR:-/tmp}/purefence-hardening.XXXXXX")
 
 cleanup() {
   if [[ -n "$test_dir" && -d "$test_dir" ]]; then
@@ -44,4 +44,4 @@ xcrun --sdk macosx swiftc \
   -lsqlite3 \
   -o "$test_dir/hardening-regression"
 
-PURESNITCH_REPO_DIR="$repo_dir" "$test_dir/hardening-regression"
+PUREFENCE_REPO_DIR="$repo_dir" "$test_dir/hardening-regression"

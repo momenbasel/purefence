@@ -2,16 +2,16 @@
 
 ## Process model
 
-The shipping PureSnitch build uses two processes: the GUI and its privileged
+The shipping PureFence build uses two processes: the GUI and its privileged
 helper. The optional Network System Extension is a separate, non-shipping build
 flavour that requires Apple-issued provisioning profiles.
 
 ```
 ┌──────────────────────────────────────────────────────────────────────┐
-│                          PureSnitch.app                              │
+│                          PureFence.app                              │
 │                                                                      │
 │  ┌────────────────────────────────────────────────────────────────┐  │
-│  │                       PureSnitch (GUI)                         │  │
+│  │                       PureFence (GUI)                         │  │
 │  │  user-space, runs as the logged-in user                        │  │
 │  │  Bundle: io.moamenbasel.puresnitch                             │  │
 │  │  - SwiftUI views (Menubar, NetworkMonitor, RulesManager, ...)  │  │
@@ -20,7 +20,7 @@ flavour that requires Apple-issued provisioning profiles.
 │  └────────────────────────────┬───────────────────────────────────┘  │
 │                               │ XPC                                  │
 │  ┌────────────────────────────▼───────────────────────────────────┐  │
-│  │                  PureSnitchHelper (daemon)                     │  │
+│  │                  PureFenceHelper (daemon)                     │  │
 │  │  root, registered with launchd via SMAppService.daemon         │  │
 │  │  Bundle: io.moamenbasel.puresnitch.helper                      │  │
 │  │  - PFManager     (root-only runtime anchor + pfctl)            │  │
@@ -55,14 +55,14 @@ pause those sockets.
 The helper accepts the first active console administrator as the owner of its
 system-wide state. Every request is re-authorized against that owner and the
 current administrator membership; release builds additionally require the
-Developer ID-signed PureSnitch client. Desired enforcement and mode are stored
+Developer ID-signed PureFence client. Desired enforcement and mode are stored
 by the root helper and are authoritative after GUI or helper restarts. The
 SQLite database, policy metadata, and PF state files are root-only.
 
 ## Experimental DNS path
 
 ```
-manually configured client → loopback:53 (PureSnitch DNS proxy)
+manually configured client → loopback:53 (PureFence DNS proxy)
                                       │
                                       ├─ blocklist match? ──→ NXDOMAIN
                                       │
@@ -78,16 +78,16 @@ manually configured client → loopback:53 (PureSnitch DNS proxy)
 
 Both UDP and TCP DNS are handled on loopback. DoH is an
 `application/dns-message` POST to a single configurable HTTPS upstream.
-PureSnitch does not intercept `libsystem_resolver`, modify network-service DNS
+PureFence does not intercept `libsystem_resolver`, modify network-service DNS
 settings, or install the proxy as the macOS system resolver.
 
 ## pfctl path
 
-When enforcement is enabled, PureSnitch first verifies that the active macOS
+When enforcement is enabled, PureFence first verifies that the active macOS
 ruleset exposes the standard `com.apple/*` parent anchor. It then obtains its
 own `pfctl -E` reference and loads the runtime sub-anchor
 `com.apple/puresnitch`. The generated file is root-only at
-`/Library/Application Support/PureSnitch/pf-anchor.conf`; PureSnitch does not
+`/Library/Application Support/PureSnitch/pf-anchor.conf`; PureFence does not
 add declarations to or reload `/etc/pf.conf`.
 
 The anchor file is rewritten by the helper from the enforceable subset of

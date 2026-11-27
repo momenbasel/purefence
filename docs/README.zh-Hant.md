@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../screenshot.png" alt="PureSnitch — macOS 開源應用程式防火牆" width="800">
+  <img src="../screenshot.png" alt="PureFence — macOS 開源應用程式防火牆" width="800">
 </p>
 
 <p align="center">
@@ -11,7 +11,7 @@
   <b>繁體中文</b>
 </p>
 
-<h1 align="center">PureSnitch</h1>
+<h1 align="center">PureFence</h1>
 
 <p align="center">
   <b>看清你的 Mac 正在與誰通訊，阻擋你不信任的連線。</b><br>
@@ -21,17 +21,17 @@
 ## 安裝
 
 ```bash
-brew trust momenbasel/puresnitch
-brew install --cask momenbasel/puresnitch/puresnitch
+brew trust momenbasel/purefence
+brew install --cask momenbasel/purefence/purefence
 ```
 
-或從 [Releases](https://github.com/momenbasel/puresnitch/releases/latest) 下載簽署並公證的 `.dmg`，然後將 PureSnitch 拖入 `/Applications`。
+或從 [Releases](https://github.com/momenbasel/purefence/releases/latest) 下載簽署並公證的 `.dmg`，然後將 PureFence 拖入 `/Applications`。
 
 ## 為什麼需要
 
 Little Snitch 是 macOS 應用程式防火牆的黃金標準，但它是付費商業軟體。LuLu 免費且在每行程核心層級表現優秀，但規則管理器較為簡樸，沒有世界地圖、流量圖表或內建黑名單庫。macOS 內建防火牆僅阻擋入站連線 — 對出站流量毫無作用。
 
-PureSnitch 提供第四種選擇:
+PureFence 提供第四種選擇:
 
 - **與 Little Snitch 6 相同的介面模式** — 選單列、世界地圖、規則管理器、連線提示。
 - **MIT 授權的開源專案** — 閱讀、分叉、稽核皆可。

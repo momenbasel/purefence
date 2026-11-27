@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.moamenbasel.com/puresnitch/sitemap.xml
+Sitemap: https://www.moamenbasel.com/purefence/sitemap.xml

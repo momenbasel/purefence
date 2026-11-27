@@ -64,7 +64,7 @@ struct NetworkMonitorView: View {
                         if connectionsForMap().isEmpty {
                             Text(state.helperConnected
                                  ? "No located connections yet"
-                                 : "Waiting for the PureSnitch helper")
+                                 : "Waiting for the PureFence helper")
                                 .font(.system(size: 11))
                                 .foregroundColor(PSTheme.textPrimary)
                                 .padding(.horizontal, 10).padding(.vertical, 5)

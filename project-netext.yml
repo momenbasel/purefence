@@ -12,9 +12,9 @@ include:
   - project.yml
 
 targets:
-  PureSnitch:
+  PureFence:
     entitlements:
-      path: Sources/GUI/PureSnitch-netext.entitlements
+      path: Sources/GUI/PureFence-netext.entitlements
       properties:
         com.apple.security.app-sandbox: false
         com.apple.security.network.client: true
@@ -24,7 +24,7 @@ targets:
         com.apple.developer.system-extension.install: true
     settings:
       base:
-        CODE_SIGN_ENTITLEMENTS: Sources/GUI/PureSnitch-netext.entitlements
+        CODE_SIGN_ENTITLEMENTS: Sources/GUI/PureFence-netext.entitlements
     dependencies:
-      - target: PureSnitchNetExt
+      - target: PureFenceNetExt
         embed: true

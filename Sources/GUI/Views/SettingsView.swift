@@ -30,7 +30,7 @@ struct SettingsView: View {
             }
             Button("Cancel", role: .cancel) {}
         } message: {
-            Text("PureSnitch will stop monitoring until the helper is installed and approved again. Enforcement must already be off so removal cannot leave or silently clear firewall state.")
+            Text("PureFence will stop monitoring until the helper is installed and approved again. Enforcement must already be off so removal cannot leave or silently clear firewall state.")
         }
     }
 
@@ -62,7 +62,7 @@ struct SettingsView: View {
                            isOn: $state.showSpeedsInMenuBar)
                 }
                 Section("General") {
-                    Toggle("Launch PureSnitch at login", isOn: $launchAtLogin)
+                    Toggle("Launch PureFence at login", isOn: $launchAtLogin)
                         .onChange(of: launchAtLogin) { newValue in setLaunchAtLogin(newValue) }
                     Toggle("Show alerts on all Spaces", isOn: $state.showAlertsOnAllSpaces)
                 }
@@ -80,7 +80,7 @@ struct SettingsView: View {
                         Spacer()
                         Text(enforcementRuntimeSummary).foregroundColor(.secondary)
                     }
-                    Text("Experimental and off by default. This loads a pf firewall anchor and starts a local DNS proxy on port \(AppConstants.dnsProxyPort). PureSnitch does not change macOS DNS settings; DNS filtering applies only if you manually configure this Mac or an app to use the proxy. Leave this off for monitoring only.")
+                    Text("Experimental and off by default. This loads a pf firewall anchor and starts a local DNS proxy on port \(AppConstants.dnsProxyPort). PureFence does not change macOS DNS settings; DNS filtering applies only if you manually configure this Mac or an app to use the proxy. Leave this off for monitoring only.")
                         .font(.caption).foregroundColor(.secondary)
                 }
                 Section("Mode") {
@@ -102,7 +102,7 @@ struct SettingsView: View {
         case .enabled: return state.helperConnected ? "Connected" : "Approved, connecting…"
         case .requiresApproval: return "Waiting for your approval"
         case .notRegistered, .unknown: return "Not installed"
-        case .wrongLocation: return "Move PureSnitch to /Applications"
+        case .wrongLocation: return "Move PureFence to /Applications"
         case .notFound: return "Missing from this build"
         case .failed(let m): return "Failed: \(m)"
         }
@@ -157,7 +157,7 @@ struct SettingsView: View {
                     Text(dnsRuntimeSummary)
                         .foregroundColor(.secondary)
                 }
-                Text("The proxy runs inside the privileged helper and filters queries sent directly to it. PureSnitch does not configure it as the macOS system resolver; manual DNS configuration is required. Status changes only after the helper confirms it.")
+                Text("The proxy runs inside the privileged helper and filters queries sent directly to it. PureFence does not configure it as the macOS system resolver; manual DNS configuration is required. Status changes only after the helper confirms it.")
                     .font(.caption).foregroundColor(.secondary)
             }
         }
@@ -211,7 +211,7 @@ struct SettingsView: View {
     private var profilesTab: some View {
         VStack(alignment: .leading) {
             Text("Profiles (organizational only)").font(.headline)
-            Text("PureSnitch 0.2.1 enforces only the default profile. Additional profiles can organize stored rules but cannot be activated.")
+            Text("PureFence 0.2.1 enforces only the default profile. Additional profiles can organize stored rules but cannot be activated.")
                 .font(.caption).foregroundColor(.secondary)
             if state.profiles.isEmpty {
                 Text("No profiles yet. Profiles come from the privileged helper's rule database.")
@@ -236,10 +236,10 @@ struct SettingsView: View {
         VStack(spacing: 12) {
             Image(systemName: "shield.lefthalf.filled")
                 .font(.system(size: 64)).foregroundColor(PSTheme.accent)
-            Text("PureSnitch").font(.title.bold())
+            Text("PureFence").font(.title.bold())
             Text("v\(AppConstants.version)").font(.subheadline).foregroundColor(.secondary)
             Text("Open-source application firewall for macOS.").font(.caption).foregroundColor(.secondary)
-            Link("github.com/momenbasel/puresnitch", destination: URL(string: "https://github.com/momenbasel/puresnitch")!)
+            Link("github.com/momenbasel/purefence", destination: URL(string: "https://github.com/momenbasel/purefence")!)
                 .font(.caption)
             Text("MIT License · © 2026 Moamen Basel")
                 .font(.caption2).foregroundColor(.secondary)

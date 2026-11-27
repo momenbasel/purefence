@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../screenshot.png" alt="PureSnitch — 适用于 macOS 的开源应用防火墙" width="800">
+  <img src="../screenshot.png" alt="PureFence — 适用于 macOS 的开源应用防火墙" width="800">
 </p>
 
 <p align="center">
@@ -11,7 +11,7 @@
   <a href="README.zh-Hant.md">繁體中文</a>
 </p>
 
-<h1 align="center">PureSnitch</h1>
+<h1 align="center">PureFence</h1>
 
 <p align="center">
   <b>看清你的 Mac 在与谁通信，阻止你不信任的连接。</b><br>
@@ -21,20 +21,20 @@
 ## 安装
 
 ```bash
-brew tap momenbasel/puresnitch
-brew trust --tap momenbasel/puresnitch
-brew install --cask puresnitch
+brew tap momenbasel/purefence
+brew trust --tap momenbasel/purefence
+brew install --cask purefence
 ```
 
-Homebrew 6 在你信任第三方 tap 之前不会加载其中的 cask，因此需要执行一次 `brew trust`。之后升级请使用 `brew upgrade --cask puresnitch`。
+Homebrew 6 在你信任第三方 tap 之前不会加载其中的 cask，因此需要执行一次 `brew trust`。之后升级请使用 `brew upgrade --cask purefence`。
 
-或从 [Releases](https://github.com/momenbasel/puresnitch/releases/latest) 下载签名并公证的 `.dmg`，然后将 PureSnitch 拖入 `/Applications`。
+或从 [Releases](https://github.com/momenbasel/purefence/releases/latest) 下载签名并公证的 `.dmg`，然后将 PureFence 拖入 `/Applications`。
 
 ## 为什么需要它
 
 Little Snitch 是 macOS 应用防火墙的黄金标准，但它是付费商业软件。LuLu 免费且在每进程内核层面表现优秀，但规则管理器较为简陋，没有世界地图、流量图表或内置黑名单库。macOS 自带防火墙只阻止入站连接 — 对出站流量毫无作用。
 
-PureSnitch 是第四种选择:
+PureFence 是第四种选择:
 
 - **与 Little Snitch 6 相同的界面模式** — 菜单栏、世界地图、规则管理器、连接弹窗。
 - **MIT 协议开源** — 阅读源码、复刻、审计皆可。

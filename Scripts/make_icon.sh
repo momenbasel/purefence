@@ -86,7 +86,7 @@ for s in satellites {
     let ring = NSBezierPath(ovalIn: NSRect(x: s.x - 40, y: s.y - 40, width: 80, height: 80))
     ring.lineWidth = 6; ring.stroke()
 }
-// central node, larger, with an orange core (the watching "snitch" eye)
+// central node, larger, with an orange core (the watching eye)
 dot(center, 66, NSColor.white)
 dot(center, 30, NSColor(srgbRed: 0.98, green: 0.36, blue: 0.20, alpha: 1.0))
 

@@ -224,7 +224,7 @@ struct RulesManagerView: View {
             return "This blocklist contains \(count) domain entries. Enable or refresh it in Settings → Blocklists."
         }
         if !state.helperConnected {
-            return "Rules are managed by the PureSnitch helper. Approve it in System Settings → General → Login Items — this window fills in on its own once it connects."
+            return "Rules are managed by the PureFence helper. Approve it in System Settings → General → Login Items — this window fills in on its own once it connects."
         }
         if state.rules.isEmpty {
             return "Rules are created automatically when you allow or deny a connection alert."
@@ -293,9 +293,9 @@ struct RulesManagerView: View {
             if let r = selectedRule {
                 ruleDetails(r)
             } else {
-                Text("The filtering behavior of PureSnitch is defined by the rules listed here.")
+                Text("The filtering behavior of PureFence is defined by the rules listed here.")
                     .font(.system(size: 12)).foregroundColor(PSTheme.textSecondary)
-                Text("Select a rule to see its details. See the PureSnitch Help, chapter [Anatomy of a rule](https://github.com/momenbasel/puresnitch#anatomy-of-a-rule) for more information.")
+                Text("Select a rule to see its details. See the PureFence Help, chapter [Anatomy of a rule](https://github.com/momenbasel/purefence#anatomy-of-a-rule) for more information.")
                     .font(.system(size: 11)).foregroundColor(PSTheme.textMuted)
                 Spacer()
             }

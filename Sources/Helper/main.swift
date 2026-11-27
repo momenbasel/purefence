@@ -5,7 +5,7 @@ import Darwin
 // this before any filesystem work so newly-created SQLite sidecars are private.
 _ = umask(mode_t(0o077))
 
-PSLog.info(PSLog.helper, "PureSnitchHelper starting v\(AppConstants.version) pid=\(getpid())")
+PSLog.info(PSLog.helper, "PureFenceHelper starting v\(AppConstants.version) pid=\(getpid())")
 
 if CommandLine.arguments.dropFirst().first == "--cleanup" {
     guard geteuid() == 0 else {
@@ -19,10 +19,10 @@ if CommandLine.arguments.dropFirst().first == "--cleanup" {
     do {
         try HelperSecurityState.prepareSupportDirectory(at: "/Library/Application Support/PureSnitch")
         try PFManager().cleanupOrphanedStateForStandaloneProcess(waitingForDaemonExitUpTo: 10)
-        PSLog.info(PSLog.helper, "PureSnitch PF cleanup completed")
+        PSLog.info(PSLog.helper, "PureFence PF cleanup completed")
         exit(0)
     } catch {
-        PSLog.error(PSLog.helper, "PureSnitch PF cleanup failed: \(error.localizedDescription)")
+        PSLog.error(PSLog.helper, "PureFence PF cleanup failed: \(error.localizedDescription)")
         exit(1)
     }
 }
@@ -52,13 +52,13 @@ if CommandLine.arguments.dropFirst().first == "--restore-homebrew-database" {
         case .sourceMissing:
             PSLog.info(PSLog.helper, "Homebrew database backup is absent; fresh install continues")
         case .targetAlreadyExists:
-            PSLog.info(PSLog.helper, "existing PureSnitch database preserved; restore skipped")
+            PSLog.info(PSLog.helper, "existing PureFence database preserved; restore skipped")
         case .restored:
-            PSLog.info(PSLog.helper, "PureSnitch database restored from validated Homebrew backup")
+            PSLog.info(PSLog.helper, "PureFence database restored from validated Homebrew backup")
         }
         exit(0)
     } catch {
-        PSLog.error(PSLog.helper, "PureSnitch database restore failed: \(error.localizedDescription)")
+        PSLog.error(PSLog.helper, "PureFence database restore failed: \(error.localizedDescription)")
         exit(1)
     }
 }

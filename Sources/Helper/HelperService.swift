@@ -211,7 +211,7 @@ final class HelperService: NSObject, HelperProtocol, @unchecked Sendable {
         defer { mutationLock.unlock() }
         if legacyPFMigrationPending {
             // A missing historical intent is not permission to remove rules.
-            // Explicit GUI repair or the cask's `PureSnitchHelper --cleanup`
+            // Explicit GUI repair or the cask's `PureFenceHelper --cleanup`
             // resolves this state.
             drainPendingAsksUsingCurrentMode()
             dns.stop()

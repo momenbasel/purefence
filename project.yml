@@ -1,4 +1,4 @@
-name: PureSnitch
+name: PureFence
 options:
   bundleIdPrefix: io.moamenbasel.puresnitch
   deploymentTarget:
@@ -35,7 +35,7 @@ fileGroups:
   - Scripts
 
 targets:
-  PureSnitch:
+  PureFence:
     type: application
     platform: macOS
     sources:
@@ -45,17 +45,17 @@ targets:
     info:
       path: Sources/GUI/Info.plist
       properties:
-        CFBundleName: PureSnitch
-        CFBundleDisplayName: PureSnitch
-        CFBundleShortVersionString: "0.2.3"
-        CFBundleVersion: "5"
+        CFBundleName: PureFence
+        CFBundleDisplayName: PureFence
+        CFBundleShortVersionString: "0.2.4"
+        CFBundleVersion: "6"
         LSMinimumSystemVersion: "13.0"
         LSUIElement: true
         NSHumanReadableCopyright: "© 2026 Moamen Basel. MIT License."
         NSPrincipalClass: NSApplication
         LSApplicationCategoryType: public.app-category.utilities
     entitlements:
-      path: Sources/GUI/PureSnitch.entitlements
+      path: Sources/GUI/PureFence.entitlements
       properties:
         com.apple.security.app-sandbox: false
         com.apple.security.network.client: true
@@ -74,12 +74,12 @@ targets:
         # Xcode 27 no longer falls back to the target name here: without an
         # explicit PRODUCT_NAME the Swift module name resolves to "" and the
         # build fails with 'Module name "" is not a valid identifier'.
-        PRODUCT_NAME: PureSnitch
-        PRODUCT_MODULE_NAME: PureSnitch
+        PRODUCT_NAME: PureFence
+        PRODUCT_MODULE_NAME: PureFence
         PRODUCT_BUNDLE_IDENTIFIER: io.moamenbasel.puresnitch
         INFOPLIST_KEY_LSUIElement: YES
         CODE_SIGN_IDENTITY: "Developer ID Application: Moamen Basel (H3WXHVTP97)"
-        CODE_SIGN_ENTITLEMENTS: Sources/GUI/PureSnitch.entitlements
+        CODE_SIGN_ENTITLEMENTS: Sources/GUI/PureFence.entitlements
         LD_RUNPATH_SEARCH_PATHS: "@executable_path/../Frameworks"
         ENABLE_HARDENED_RUNTIME: YES
         COMBINE_HIDPI_IMAGES: YES
@@ -90,24 +90,24 @@ targets:
         script: |
           set -e
           APP="${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}"
-          HELPER_BIN="${BUILT_PRODUCTS_DIR}/PureSnitchHelper"
+          HELPER_BIN="${BUILT_PRODUCTS_DIR}/PureFenceHelper"
           if [ -f "$HELPER_BIN" ]; then
             mkdir -p "$APP/Contents/MacOS"
-            cp -f "$HELPER_BIN" "$APP/Contents/MacOS/PureSnitchHelper"
+            cp -f "$HELPER_BIN" "$APP/Contents/MacOS/PureFenceHelper"
             mkdir -p "$APP/Contents/Library/LaunchDaemons"
             cp -f "${SRCROOT}/Sources/Helper/Launchd.plist" "$APP/Contents/Library/LaunchDaemons/io.moamenbasel.puresnitch.helper.plist"
           else
             echo "warning: helper binary not found, skipping embed"
           fi
     dependencies:
-      - target: PureSnitchHelper
+      - target: PureFenceHelper
         embed: false
         link: false
-      # PureSnitchNetExt is intentionally NOT embedded in the shipping build —
+      # PureFenceNetExt is intentionally NOT embedded in the shipping build —
       # embedding it requires the restricted entitlements above. Generate the
       # firewall flavour with: xcodegen generate --spec project-netext.yml
 
-  PureSnitchNetExt:
+  PureFenceNetExt:
     type: system-extension
     platform: macOS
     sources:
@@ -118,17 +118,17 @@ targets:
     info:
       path: Sources/NetExt/Info.plist
       properties:
-        CFBundleName: PureSnitchNetExt
-        CFBundleDisplayName: PureSnitch Network Extension
-        CFBundleShortVersionString: "0.2.3"
-        CFBundleVersion: "5"
+        CFBundleName: PureFenceNetExt
+        CFBundleDisplayName: PureFence Network Extension
+        CFBundleShortVersionString: "0.2.4"
+        CFBundleVersion: "6"
         CFBundlePackageType: SYSX
         LSMinimumSystemVersion: "13.0"
-        NSSystemExtensionUsageDescription: "PureSnitch filters per-app network connections."
+        NSSystemExtensionUsageDescription: "PureFence filters per-app network connections."
         NetworkExtension:
           NEMachServiceName: H3WXHVTP97.io.moamenbasel.puresnitch.ipc
           NEProviderClasses:
-            com.apple.networkextension.filter-data: PureSnitchNetExt.FilterDataProvider
+            com.apple.networkextension.filter-data: PureFenceNetExt.FilterDataProvider
     entitlements:
       path: Sources/NetExt/NetExt.entitlements
       properties:
@@ -139,15 +139,15 @@ targets:
           - content-filter-provider-systemextension
     settings:
       base:
-        PRODUCT_NAME: PureSnitchNetExt
+        PRODUCT_NAME: PureFenceNetExt
         PRODUCT_BUNDLE_IDENTIFIER: io.moamenbasel.puresnitch.netext
-        PRODUCT_MODULE_NAME: PureSnitchNetExt
+        PRODUCT_MODULE_NAME: PureFenceNetExt
         CODE_SIGN_IDENTITY: "Developer ID Application: Moamen Basel (H3WXHVTP97)"
         CODE_SIGN_ENTITLEMENTS: Sources/NetExt/NetExt.entitlements
         ENABLE_HARDENED_RUNTIME: YES
         SKIP_INSTALL: YES
 
-  PureSnitchHelper:
+  PureFenceHelper:
     type: tool
     platform: macOS
     sources:
@@ -158,7 +158,7 @@ targets:
       - path: Sources/Shared
     settings:
       base:
-        PRODUCT_NAME: PureSnitchHelper
+        PRODUCT_NAME: PureFenceHelper
         PRODUCT_BUNDLE_IDENTIFIER: io.moamenbasel.puresnitch.helper
         CODE_SIGN_IDENTITY: "Developer ID Application: Moamen Basel (H3WXHVTP97)"
         CODE_SIGN_ENTITLEMENTS: Sources/Helper/Helper.entitlements

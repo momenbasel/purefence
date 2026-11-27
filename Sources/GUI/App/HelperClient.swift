@@ -262,7 +262,7 @@ final class HelperClient: NSObject, ObservableObject {
                 let version = self.helperVersionBeforeUnregistration ?? "legacy"
                 self.state?.appendLog(
                     level: "error",
-                    message: "PureSnitch v\(version) has preserved legacy PF state and can only be removed through Repair Helper so a replacement can reconcile it."
+                    message: "PureFence v\(version) has preserved legacy PF state and can only be removed through Repair Helper so a replacement can reconcile it."
                 )
                 self.recoverRuntimeAfterFailedUnregistration()
                 return
@@ -798,9 +798,9 @@ final class HelperClient: NSObject, ObservableObject {
         let priorIntentWasOn = capturedLegacyEnforcementIntent == true
             || initialStatus.enforcementDesired
         if hasCurrentRules {
-            alert.informativeText = "PureSnitch found preserved legacy firewall state\(priorIntentWasOn ? " and a previous request to keep enforcement on" : ""), but replacing its rules requires a new explicit choice. Decide Later is the only choice that preserves every legacy rule unchanged. Keep On replaces them with the current v0.2.1 rule store; non-default, allow, process-only, domain-only, disabled, expired, or otherwise non-renderable rules will not survive as host-wide PF rules. Turn Off removes the legacy firewall state."
+            alert.informativeText = "PureFence found preserved legacy firewall state\(priorIntentWasOn ? " and a previous request to keep enforcement on" : ""), but replacing its rules requires a new explicit choice. Decide Later is the only choice that preserves every legacy rule unchanged. Keep On replaces them with the current v0.2.1 rule store; non-default, allow, process-only, domain-only, disabled, expired, or otherwise non-renderable rules will not survive as host-wide PF rules. Turn Off removes the legacy firewall state."
         } else {
-            alert.informativeText = "PureSnitch found preserved legacy firewall state, but the current v0.2.1 rule store is empty. Homebrew recovery snapshots are not imported automatically because tap files are user-writable. Decide Later is the only choice that preserves the legacy firewall rules unchanged. Keep On is unavailable because it would replace them with an empty ruleset; Turn Off removes them."
+            alert.informativeText = "PureFence found preserved legacy firewall state, but the current v0.2.1 rule store is empty. Homebrew recovery snapshots are not imported automatically because tap files are user-writable. Decide Later is the only choice that preserves the legacy firewall rules unchanged. Keep On is unavailable because it would replace them with an empty ruleset; Turn Off removes them."
         }
         // Make the non-mutating choice the default. Pressing Return or closing
         // an unexpected upgrade prompt must preserve the legacy firewall.

@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../screenshot.png" alt="PureSnitch — macOS 向けオープンソース アプリケーション ファイアウォール" width="800">
+  <img src="../screenshot.png" alt="PureFence — macOS 向けオープンソース アプリケーション ファイアウォール" width="800">
 </p>
 
 <p align="center">
@@ -11,7 +11,7 @@
   <a href="README.zh-Hant.md">繁體中文</a>
 </p>
 
-<h1 align="center">PureSnitch</h1>
+<h1 align="center">PureFence</h1>
 
 <p align="center">
   <b>Mac が何と通信しているかを確認し、信頼できないものをブロックします。</b><br>
@@ -21,20 +21,20 @@
 ## インストール
 
 ```bash
-brew tap momenbasel/puresnitch
-brew trust --tap momenbasel/puresnitch
-brew install --cask puresnitch
+brew tap momenbasel/purefence
+brew trust --tap momenbasel/purefence
+brew install --cask purefence
 ```
 
-Homebrew 6 は信頼していないサードパーティ タップの cask を読み込みません。そのため `brew trust` の実行が一度だけ必要です。以降の更新は `brew upgrade --cask puresnitch` を使います。
+Homebrew 6 は信頼していないサードパーティ タップの cask を読み込みません。そのため `brew trust` の実行が一度だけ必要です。以降の更新は `brew upgrade --cask purefence` を使います。
 
-または [Releases](https://github.com/momenbasel/puresnitch/releases/latest) から署名・公証済みの `.dmg` をダウンロードし、PureSnitch を `/Applications` にドラッグします。
+または [Releases](https://github.com/momenbasel/purefence/releases/latest) から署名・公証済みの `.dmg` をダウンロードし、PureFence を `/Applications` にドラッグします。
 
 ## なぜ作ったか
 
 Little Snitch は macOS アプリケーション ファイアウォールのゴールド スタンダードですが、有料の商用ソフトウェアです。LuLu は無料でプロセス単位のカーネル レベルでは優秀ですが、ルール マネージャーが簡素で、世界地図もトラフィック グラフもブロックリスト ライブラリもありません。macOS 標準のファイアウォールは受信のみブロックします — 送信トラフィックには何もしません。
 
-PureSnitch は 4 番目の選択肢です:
+PureFence は 4 番目の選択肢です:
 
 - **Little Snitch 6 と同じ UI パターン** — メニューバー、世界地図、ルール マネージャー、接続アラート
 - **MIT ライセンスのオープンソース** — コードを読み、フォークし、監査できます

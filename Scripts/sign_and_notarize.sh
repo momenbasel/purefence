@@ -4,15 +4,15 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 
-APP_BUNDLE="build/release/Build/Products/Release/PureSnitch.app"
+APP_BUNDLE="build/release/Build/Products/Release/PureFence.app"
 TEAM_ID="H3WXHVTP97"
 SIGN_ID="Developer ID Application: Moamen Basel ($TEAM_ID)"
 NOTARY_PROFILE="puresnitch-notary"
-APP_ENT="$ROOT/Sources/GUI/PureSnitch.entitlements"
+APP_ENT="$ROOT/Sources/GUI/PureFence.entitlements"
 HELPER_ENT="$ROOT/Sources/Helper/Helper.entitlements"
 NETEXT_ENT="$ROOT/Sources/NetExt/NetExt.entitlements"
-VERSION="${VERSION:-0.2.3}"
-BUILD_NUMBER="${BUILD_NUMBER:-5}"
+VERSION="${VERSION:-0.2.4}"
+BUILD_NUMBER="${BUILD_NUMBER:-6}"
 NOTARIZE="${NOTARIZE:-1}"
 
 fail() {
@@ -71,7 +71,7 @@ mkdir -p build/release
 # ARCHS must be passed on the command line: the project-level setting alone
 # still produced an arm64-only binary, which is how v0.1.0 shipped without an
 # Intel slice and simply refused to launch on Intel Macs.
-if ! xcodebuild -project PureSnitch.xcodeproj -scheme PureSnitch -configuration Release \
+if ! xcodebuild -project PureFence.xcodeproj -scheme PureFence -configuration Release \
   -derivedDataPath build/release \
   ARCHS="arm64 x86_64" ONLY_ACTIVE_ARCH=NO \
   CODE_SIGN_IDENTITY="$SIGN_ID" CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM="$TEAM_ID" \
@@ -83,22 +83,22 @@ fi
 [ -d "$APP_BUNDLE" ] || fail "$APP_BUNDLE missing"
 
 echo ">> Verifying the bundle a user actually gets…"
-HELPER_BIN="$APP_BUNDLE/Contents/MacOS/PureSnitchHelper"
+HELPER_BIN="$APP_BUNDLE/Contents/MacOS/PureFenceHelper"
 assert_plist_metadata "$APP_BUNDLE/Contents/Info.plist"
 test -f "$HELPER_BIN" || fail "privileged helper missing from the bundle"
 test -f "$APP_BUNDLE/Contents/Library/LaunchDaemons/io.moamenbasel.puresnitch.helper.plist" || fail "launchd plist missing"
 test -f "$APP_BUNDLE/Contents/Resources/Assets.car" || fail "Assets.car missing - the app would have no icon"
 test -f "$APP_BUNDLE/Contents/Resources/AppIcon.icns" || fail "AppIcon.icns missing"
-for BIN in "$APP_BUNDLE/Contents/MacOS/PureSnitch" "$HELPER_BIN"; do
+for BIN in "$APP_BUNDLE/Contents/MacOS/PureFence" "$HELPER_BIN"; do
   assert_universal "$BIN"
 done
 echo "   universal + icon + helper OK"
 
 echo ">> Stripping duplicate helper from Resources/ if any…"
-rm -f "$APP_BUNDLE/Contents/Resources/PureSnitchHelper"
+rm -f "$APP_BUNDLE/Contents/Resources/PureFenceHelper"
 
 echo ">> Re-signing helper without get-task-allow…"
-HELPER="$APP_BUNDLE/Contents/MacOS/PureSnitchHelper"
+HELPER="$APP_BUNDLE/Contents/MacOS/PureFenceHelper"
 codesign --remove-signature "$HELPER" || true
 codesign --force --options=runtime --timestamp \
   --entitlements "$HELPER_ENT" \
@@ -106,7 +106,7 @@ codesign --force --options=runtime --timestamp \
   "$HELPER"
 
 echo ">> Re-signing network system extension…"
-NETEXT="$APP_BUNDLE/Contents/Library/SystemExtensions/PureSnitchNetExt.systemextension"
+NETEXT="$APP_BUNDLE/Contents/Library/SystemExtensions/PureFenceNetExt.systemextension"
 if [ -d "$NETEXT" ]; then
   codesign --remove-signature "$NETEXT" || true
   codesign --force --options=runtime --timestamp \
@@ -133,7 +133,7 @@ if [ "$NOTARIZE" = "1" ]; then
   echo ">> Zipping for notarization…"
   # The ZIP is transient notarization input under build/. Only the final DMG
   # belongs in artifacts/ and should be attached to the GitHub release.
-  NOTARY_ZIP="$ROOT/build/release/PureSnitch-${VERSION}-notary.zip"
+  NOTARY_ZIP="$ROOT/build/release/PureFence-${VERSION}-notary.zip"
   rm -f "$NOTARY_ZIP"
   /usr/bin/ditto -c -k --keepParent "$APP_BUNDLE" "$NOTARY_ZIP"
 

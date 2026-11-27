@@ -17,7 +17,7 @@ enum HelperSecurityStateError: Error, LocalizedError {
         case .unsafePath(let path):
             return "unsafe helper storage path: \(path)"
         case .invalidDatabaseBackup(let reason):
-            return "invalid PureSnitch database backup: \(reason)"
+            return "invalid PureFence database backup: \(reason)"
         }
     }
 }
@@ -29,12 +29,12 @@ enum HelperDaemonCleanupGateError: Error, LocalizedError {
     var errorDescription: String? {
         switch self {
         case .daemonIsRunning:
-            return "the PureSnitch helper daemon is still running"
+            return "the PureFence helper daemon is still running"
         case .daemonStateUnknown(let status):
             if let status {
-                return "could not verify that the PureSnitch helper daemon is stopped (launchctl rc \(status))"
+                return "could not verify that the PureFence helper daemon is stopped (launchctl rc \(status))"
             }
-            return "could not verify that the PureSnitch helper daemon is stopped"
+            return "could not verify that the PureFence helper daemon is stopped"
         }
     }
 }
@@ -88,7 +88,7 @@ enum HelperDaemonCleanupGate {
 }
 
 struct HelperBundlePresence {
-    /// `<App>.app/Contents/MacOS/PureSnitchHelper` maps to
+    /// `<App>.app/Contents/MacOS/PureFenceHelper` maps to
     /// `<App>.app/Contents/Library/LaunchDaemons/<label>.plist`. Nil outside a
     /// bundle, which disables the watchdog instead of retiring a helper that
     /// never had a plist to lose.

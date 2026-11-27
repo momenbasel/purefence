@@ -1,22 +1,22 @@
-# Contributing to PureSnitch
+# Contributing to PureFence
 
 Thanks for considering a contribution. The bar is: ship working code, keep the diff small, leave the codebase clearer than you found it.
 
 ## Quick start
 
 ```bash
-git clone https://github.com/momenbasel/puresnitch.git
-cd puresnitch
+git clone https://github.com/momenbasel/purefence.git
+cd purefence
 brew install xcodegen
 xcodegen generate
-open PureSnitch.xcodeproj
+open PureFence.xcodeproj
 ```
 
 The project file carries the maintainer's release-signing identity. For a
 certificate-free local build, use:
 
 ```bash
-xcodebuild -project PureSnitch.xcodeproj -scheme PureSnitch -configuration Debug \
+xcodebuild -project PureFence.xcodeproj -scheme PureFence -configuration Debug \
   -derivedDataPath build/dd \
   CODE_SIGN_IDENTITY="-" \
   CODE_SIGNING_REQUIRED=NO \
@@ -50,13 +50,13 @@ ID signing when testing helper-backed behavior.
 - [ ] Builds clean with the certificate-free command above
 - [ ] No new warnings in your changed files
 - [ ] Manual test pass: app launches, menubar popover appears, Network Monitor opens, Rules Manager opens
-- [ ] If you touched the helper: `sudo lsof -nP -iUDP:53` shows only the loopback listener, and `sudo pfctl -a com.apple/puresnitch -s rules` shows only PureSnitch's validated runtime rules
+- [ ] If you touched the helper: `sudo lsof -nP -iUDP:53` shows only the loopback listener, and `sudo pfctl -a com.apple/puresnitch -s rules` shows only PureFence's validated runtime rules
 
 ## Reporting bugs
 
 Open an issue. Include:
 - macOS version
-- PureSnitch version (Settings → About)
+- PureFence version (Settings → About)
 - Reproduction steps
 - Console output from `log stream --predicate 'subsystem == "io.moamenbasel.puresnitch"'`
 

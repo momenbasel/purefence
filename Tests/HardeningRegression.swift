@@ -157,7 +157,7 @@ private final class FakePFRunner: @unchecked Sendable {
         case ["-E"]:
             return "pf enabled\nToken : \(enableToken)\n"
         case ["-s", "References"]:
-            return referencesContainToken ? "0 PureSnitch \(enableToken)\n" : "0 other 999999\n"
+            return referencesContainToken ? "0 PureFence \(enableToken)\n" : "0 other 999999\n"
         default:
             return ""
         }
@@ -565,9 +565,9 @@ private func testHelperSecurityState() throws {
 }
 
 private func testHelperServiceAuthorizationIntegration() throws {
-    guard let repositoryPath = ProcessInfo.processInfo.environment["PURESNITCH_REPO_DIR"],
+    guard let repositoryPath = ProcessInfo.processInfo.environment["PUREFENCE_REPO_DIR"],
           !repositoryPath.isEmpty else {
-        throw RegressionFailure(description: "PURESNITCH_REPO_DIR was not provided")
+        throw RegressionFailure(description: "PUREFENCE_REPO_DIR was not provided")
     }
     let helperServicePath = URL(fileURLWithPath: repositoryPath)
         .appendingPathComponent("Sources/Helper/HelperService.swift")
@@ -613,9 +613,9 @@ private func testHelperServiceAuthorizationIntegration() throws {
 }
 
 private func testLegacyHelperUpgradeSequencing() throws {
-    guard let repositoryPath = ProcessInfo.processInfo.environment["PURESNITCH_REPO_DIR"],
+    guard let repositoryPath = ProcessInfo.processInfo.environment["PUREFENCE_REPO_DIR"],
           !repositoryPath.isEmpty else {
-        throw RegressionFailure(description: "PURESNITCH_REPO_DIR was not provided")
+        throw RegressionFailure(description: "PUREFENCE_REPO_DIR was not provided")
     }
     let helperClientPath = URL(fileURLWithPath: repositoryPath)
         .appendingPathComponent("Sources/GUI/App/HelperClient.swift")
@@ -857,9 +857,9 @@ private func testLegacyHelperUpgradeSequencing() throws {
 }
 
 private func testHelperClientRecoveryAndStatusFreshness() throws {
-    guard let repositoryPath = ProcessInfo.processInfo.environment["PURESNITCH_REPO_DIR"],
+    guard let repositoryPath = ProcessInfo.processInfo.environment["PUREFENCE_REPO_DIR"],
           !repositoryPath.isEmpty else {
-        throw RegressionFailure(description: "PURESNITCH_REPO_DIR was not provided")
+        throw RegressionFailure(description: "PUREFENCE_REPO_DIR was not provided")
     }
     let repositoryURL = URL(fileURLWithPath: repositoryPath)
     let source = try String(
@@ -1101,9 +1101,9 @@ private func testHelperClientRecoveryAndStatusFreshness() throws {
 }
 
 private func testHelperLegacyReconciliationIntegration() throws {
-    guard let repositoryPath = ProcessInfo.processInfo.environment["PURESNITCH_REPO_DIR"],
+    guard let repositoryPath = ProcessInfo.processInfo.environment["PUREFENCE_REPO_DIR"],
           !repositoryPath.isEmpty else {
-        throw RegressionFailure(description: "PURESNITCH_REPO_DIR was not provided")
+        throw RegressionFailure(description: "PUREFENCE_REPO_DIR was not provided")
     }
     let helperServicePath = URL(fileURLWithPath: repositoryPath)
         .appendingPathComponent("Sources/Helper/HelperService.swift")
@@ -1263,9 +1263,9 @@ private func testHelperLegacyReconciliationIntegration() throws {
 }
 
 private func testDatabaseRestore() throws {
-    guard let repositoryPath = ProcessInfo.processInfo.environment["PURESNITCH_REPO_DIR"],
+    guard let repositoryPath = ProcessInfo.processInfo.environment["PUREFENCE_REPO_DIR"],
           !repositoryPath.isEmpty else {
-        throw RegressionFailure(description: "PURESNITCH_REPO_DIR was not provided")
+        throw RegressionFailure(description: "PUREFENCE_REPO_DIR was not provided")
     }
     let helperMain = try String(
         contentsOf: URL(fileURLWithPath: repositoryPath)
@@ -1769,17 +1769,17 @@ private func testHelperBundlePresence() throws {
     let label = "io.moamenbasel.puresnitch.helper"
     try require(
         HelperBundlePresence.launchdPlistPath(
-            forHelperExecutable: "/Applications/PureSnitch.app/Contents/MacOS/PureSnitchHelper",
+            forHelperExecutable: "/Applications/PureFence.app/Contents/MacOS/PureFenceHelper",
             label: label
-        ) == "/Applications/PureSnitch.app/Contents/Library/LaunchDaemons/\(label).plist",
+        ) == "/Applications/PureFence.app/Contents/Library/LaunchDaemons/\(label).plist",
         "bundled helper did not resolve its launchd definition"
     )
     try require(
-        HelperBundlePresence.launchdPlistPath(forHelperExecutable: "/usr/local/bin/PureSnitchHelper", label: label) == nil,
+        HelperBundlePresence.launchdPlistPath(forHelperExecutable: "/usr/local/bin/PureFenceHelper", label: label) == nil,
         "a helper outside a bundle was given a plist to watch"
     )
     try require(
-        HelperBundlePresence.launchdPlistPath(forHelperExecutable: "PureSnitchHelper", label: label) == nil,
+        HelperBundlePresence.launchdPlistPath(forHelperExecutable: "PureFenceHelper", label: label) == nil,
         "a relative executable path was given a plist to watch"
     )
 
@@ -2380,7 +2380,7 @@ private func testDNSProxyStartStopRace() throws {
 
 private func withTemporaryDirectory<T>(_ body: (URL) throws -> T) throws -> T {
     let directory = FileManager.default.temporaryDirectory
-        .appendingPathComponent("puresnitch-hardening-\(UUID().uuidString)", isDirectory: true)
+        .appendingPathComponent("purefence-hardening-\(UUID().uuidString)", isDirectory: true)
     try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
     defer { try? FileManager.default.removeItem(at: directory) }
     return try body(directory)

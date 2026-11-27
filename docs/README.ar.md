@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../screenshot.png" alt="PureSnitch — جدار حماية للتطبيقات على macOS" width="800">
+  <img src="../screenshot.png" alt="PureFence — جدار حماية للتطبيقات على macOS" width="800">
 </p>
 
 <p align="center">
@@ -11,7 +11,7 @@
   <a href="README.zh-Hant.md">繁體中文</a>
 </p>
 
-<h1 align="center">PureSnitch</h1>
+<h1 align="center">PureFence</h1>
 
 <p align="center">
   <b>اعرف مع من يتحدث جهازك. واحجب ما لا تثق به.</b><br>
@@ -21,20 +21,20 @@
 ## التثبيت
 
 ```bash
-brew tap momenbasel/puresnitch
-brew trust --tap momenbasel/puresnitch
-brew install --cask puresnitch
+brew tap momenbasel/purefence
+brew trust --tap momenbasel/purefence
+brew install --cask purefence
 ```
 
-يرفض Homebrew 6 تحميل أي cask من صنبور خارجي قبل الوثوق به، لذلك يلزم تنفيذ سطر `brew trust` مرة واحدة فقط. للتحديث لاحقًا استخدم `brew upgrade --cask puresnitch`.
+يرفض Homebrew 6 تحميل أي cask من صنبور خارجي قبل الوثوق به، لذلك يلزم تنفيذ سطر `brew trust` مرة واحدة فقط. للتحديث لاحقًا استخدم `brew upgrade --cask purefence`.
 
-أو نزّل ملف الـ `.dmg` الموقّع والموثّق من [صفحة الإصدارات](https://github.com/momenbasel/puresnitch/releases/latest) واسحب PureSnitch إلى مجلد `/Applications`.
+أو نزّل ملف الـ `.dmg` الموقّع والموثّق من [صفحة الإصدارات](https://github.com/momenbasel/purefence/releases/latest) واسحب PureFence إلى مجلد `/Applications`.
 
-## لماذا PureSnitch
+## لماذا PureFence
 
 Little Snitch هو المعيار الذهبي لجدار الحماية على نظام macOS، لكنه برنامج تجاري مدفوع. LuLu مجاني لكنه يفتقر إلى الخريطة العالمية ومدير القواعد المتقدم. جدار الحماية المدمج في macOS يحجب الاتصالات الواردة فقط ولا يفعل شيئًا للاتصالات الصادرة.
 
-PureSnitch يقدّم الخيار الرابع:
+PureFence يقدّم الخيار الرابع:
 
 - **نفس واجهة Little Snitch 6** — عنصر شريط القوائم، خريطة العالم، مدير القواعد، تنبيهات الاتصالات.
 - **مفتوح المصدر بترخيص MIT** — اقرأ الكود، عدّله، شاركه.

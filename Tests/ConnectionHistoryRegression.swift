@@ -81,7 +81,7 @@ private func testActiveConnectionIdentity() throws {
 
 private func withHistoryDatabase(_ body: (URL) throws -> Void) throws {
     let directory = FileManager.default.temporaryDirectory
-        .appendingPathComponent("puresnitch-connection-history-\(UUID().uuidString)", isDirectory: true)
+        .appendingPathComponent("purefence-connection-history-\(UUID().uuidString)", isDirectory: true)
     try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
     defer { try? FileManager.default.removeItem(at: directory) }
     try body(directory.appendingPathComponent("history.sqlite"))
