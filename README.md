@@ -250,7 +250,7 @@ What PureSnitch does **not** do:
 | Telemetry | none | none | none | n/a |
 | Auditable source | yes | no | yes | no |
 
-If per-process kernel filtering matters to you today, use **LuLu** — it's free, open source and has the Network Extension entitlement. If you want the Little Snitch UI without buying a commercial license, that is what PureSnitch is for.
+If per-process kernel filtering matters to you today, use **LuLu** — it's free, open source and has the Network Extension entitlement.
 
 ## Roadmap
 
